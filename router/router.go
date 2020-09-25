@@ -23,5 +23,15 @@ func InitRouter() *fiber.App {
 		return c.SendString(x)
 	})
 
+	app.Get("/channels/*", func(c *fiber.Ctx) error {
+
+		return c.SendString(c.Params("*"))
+	})
+
+	app.Get("/tags/*", func(c *fiber.Ctx) error {
+
+		return c.SendString(c.Params("*"))
+	})
+
 	return app
 }
