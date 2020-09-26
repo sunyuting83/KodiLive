@@ -27,21 +27,17 @@ func GetIndex(url string) (d string, e error) {
 func MakeData(list []string, url string, t bool) (data string) {
 	var (
 		i        string
-		n        string
-		d        string
 		u        string
 		channels string = "/tags/"
 	)
 	if t == false {
-		data = "#EXTM3U"
+		data = "#EXTM3U\n"
 		channels = "/channels/"
 	}
 	for _, item := range list {
-		i = strings.Join([]string{"", item}, "#EXTINF:-1,")
-		n = strings.Join([]string{"", ".m3u"}, item)
-		d = strings.Join([]string{"", n}, channels)
-		u = strings.Join([]string{"\r", d}, url)
-		data += strings.Join([]string{"\r", u}, i)
+		i = strings.Join([]string{"#EXTINF:-1", item}, ",")
+		u = strings.Join([]string{url, channels, item, ".m3u", "\n"}, "")
+		data += strings.Join([]string{i, "\n", u}, "")
 	}
 	return
 }
