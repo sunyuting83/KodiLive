@@ -31,5 +31,9 @@ func InitRouter() *fiber.App {
 		return c.SendString(controller.GetList(c.Params("*"), c.BaseURL(), true))
 	})
 
+	app.Get("/livecam/:name/playlist.m3u8", func(c *fiber.Ctx) error {
+		return c.SendString(controller.GetM3u8(c.Params("name")))
+	})
+
 	return app
 }
