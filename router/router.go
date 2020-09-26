@@ -3,13 +3,25 @@ package router
 import (
 	"KodiLive/controller"
 	"fmt"
+	"os"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/logger"
 )
 
 // InitRouter create router
 func InitRouter() *fiber.App {
 	app := fiber.New()
+
+	app.Use(logger.New())
+
+	// Or extend your config for customization
+	app.Use(logger.New(logger.Config{
+		Format:     "${pid} ${status} - ${method} ${path}\n",
+		TimeFormat: "02-Jan-2006",
+		TimeZone:   "America/New_York",
+		Output:     os.Stdout,
+	}))
 
 	app.Get("/", func(c *fiber.Ctx) error {
 		return c.SendStatus(403)
@@ -32,7 +44,7 @@ func InitRouter() *fiber.App {
 	})
 
 	app.Get("/livecam/:name/playlist.m3u8", func(c *fiber.Ctx) error {
-		return c.SendString(controller.GetM3u8(c.Params("name")))
+		return c.Redirect(controller.GetM3u8(c.Params("name")))
 	})
 
 	return app

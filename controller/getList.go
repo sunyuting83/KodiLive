@@ -61,11 +61,11 @@ func LiveScrape(name string, local string, t bool, cors bool) (List string) {
 		cover := strings.Join([]string{cc, tt}, "")
 		first := `#EXTINF:-1 tvg-id="" tvg-name="`
 		cv := `" tvg-language="English" tvg-logo="`
-		after := `" group-title="livecam",RTVA`
+		after := `" group-title="livecam",`
 		r := "\n"
 		m3u8 := strings.Join([]string{local, "livecam", title, "playlist.m3u8"}, "/")
 		m3u8 = strings.Join([]string{m3u8, "\n"}, "")
-		var str []string = []string{first, title, cv, cover, after, r, m3u8}
+		var str []string = []string{first, title, cv, cover, after, title, r, m3u8}
 		List += strings.Join(str, "")
 	})
 	return List
