@@ -8,8 +8,8 @@ import (
 )
 
 // GetM3u8 get m3u8 fun
-func GetM3u8(n string) (m string) {
-	return getM3u8Scrape(n, true)
+func GetM3u8(n string, proxy bool) (m string) {
+	return getM3u8Scrape(n, proxy)
 }
 
 // LiveScrape get live list

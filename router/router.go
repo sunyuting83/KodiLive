@@ -10,7 +10,7 @@ import (
 )
 
 // InitRouter create router
-func InitRouter() *fiber.App {
+func InitRouter(proxy bool) *fiber.App {
 	app := fiber.New()
 
 	app.Use(logger.New())
@@ -36,15 +36,15 @@ func InitRouter() *fiber.App {
 	})
 
 	app.Get("/channels/*", func(c *fiber.Ctx) error {
-		return c.SendString(controller.GetList(c.Params("*"), c.BaseURL(), false))
+		return c.SendString(controller.GetList(c.Params("*"), c.BaseURL(), false, proxy))
 	})
 
 	app.Get("/tags/*", func(c *fiber.Ctx) error {
-		return c.SendString(controller.GetList(c.Params("*"), c.BaseURL(), true))
+		return c.SendString(controller.GetList(c.Params("*"), c.BaseURL(), true, proxy))
 	})
 
 	app.Get("/livecam/:name/playlist.m3u8", func(c *fiber.Ctx) error {
-		return c.Redirect(controller.GetM3u8(c.Params("name")))
+		return c.Redirect(controller.GetM3u8(c.Params("name"), proxy))
 	})
 
 	return app
