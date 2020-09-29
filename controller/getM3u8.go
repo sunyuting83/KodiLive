@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"fmt"
 	"net/http"
 	"strings"
 
@@ -19,7 +20,7 @@ func getM3u8Scrape(t string, cors bool) (live string) {
 		err error
 		url string
 	)
-	live = ""
+	live = "#EXTM3U\n#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=800000,RESOLUTION=1080x608\n"
 	if len(t) <= 0 {
 		return live
 	}
@@ -49,7 +50,9 @@ func getM3u8Scrape(t string, cors bool) (live string) {
 			x := strings.Index(s, `hls_source\u0022: \u0022`) + 24
 			y := strings.Index(s, `\u0022, \u0022allow_show_recordings`)
 			s = s[x:y]
-			live = strings.Replace(s, `\u002D`, `-`, -1)
+			d := strings.Replace(s, `\u002D`, `-`, -1)
+			fmt.Println(d)
+			live = strings.Join([]string{live, d}, "")
 		}
 	})
 
