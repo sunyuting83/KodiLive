@@ -1,0 +1,13 @@
+[Unit]
+Description=The Porn Cam Show of Kodi with fiber
+After=network.target remote-fs.target nss-lookup.target
+
+[Service]
+Type=forking
+ExecStart=/etc/kodilive/kodilive.sh
+ExecStop=/bin/kill -s HUP $MAINPID
+ExecReload=/bin/kill -s QUIT $MAINPID
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

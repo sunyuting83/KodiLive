@@ -10,9 +10,9 @@ import (
 )
 
 // GetList Get List
-func GetList(n string, l string, t bool) (data string) {
+func GetList(n string, l string, t bool, proxy bool) (data string) {
 	n = strings.Split(n, ".")[0]
-	return LiveScrape(n, l, t, true)
+	return LiveScrape(n, l, t, proxy)
 }
 
 // LiveScrape get live list

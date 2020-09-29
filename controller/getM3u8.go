@@ -1,7 +1,6 @@
 package controller
 
 import (
-	"fmt"
 	"net/http"
 	"strings"
 
@@ -9,8 +8,8 @@ import (
 )
 
 // GetM3u8 get m3u8 fun
-func GetM3u8(n string) (m string) {
-	return getM3u8Scrape(n, true)
+func GetM3u8(n string, proxy bool) (m string) {
+	return getM3u8Scrape(n, proxy)
 }
 
 // LiveScrape get live list
@@ -51,7 +50,7 @@ func getM3u8Scrape(t string, cors bool) (live string) {
 			y := strings.Index(s, `\u0022, \u0022allow_show_recordings`)
 			s = s[x:y]
 			d := strings.Replace(s, `\u002D`, `-`, -1)
-			fmt.Println(d)
+			// fmt.Println(d)
 			live = strings.Join([]string{live, d}, "")
 		}
 	})
